@@ -27,11 +27,20 @@ window.addEventListener('load', () => {
             AreaArray.map(k => areaButton(k.code, k.area, k.url.replace('public/', './')));
             CentralAreaLine.map(k => lineButton(k.code, k.line));
             break;
+        case '運用検索ページ':
+            AreaArray.map(k => areaButton(k.code, k.area, k.url.replace('public/', './')));
+            UnyoList.map(k => unyoButton(k.code, k.name));
+            break;
         default:
             AreaArray.map(k => areaButton(k.code, k.area, k.url));
             break;
     }
-    sideBtnArray.map(k => infoButton(k.areaName, k.url, k.value));
+    if (area === '運用検索ページ') {
+        sideBtnArray.splice(0, 1);
+        sideBtnArray.map(k => infoButton(k.areaName, k.url, k.value));
+    } else {
+        sideBtnArray.map(k => infoButton(k.areaName, k.url, k.value));
+    }
 }, false);
 
 /**
@@ -47,10 +56,18 @@ function infoButton(areaName, url, value) {
     button.className = 'button';
     button.onclick = function () {
         switch (value) {
-            case '運用検索ページ': location.href = url;
-                break;
+            case '運用検索ページ':
+                switch (area) {
+                    case 'TrainPos/InfoSearch App':
+                        location.href = url;
+                        break;
+                    default:
+                        location.href = url.replace('public/', './');
+                        break;
+                }
             default: window.open(url, '_blank');
                 break;
+
         }
     }
     button.innerText = value;
@@ -85,14 +102,28 @@ function lineButton(code, line) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = `${code}_button`;
-    button.name = 'word1';
+    button.name = 'word';
     button.onclick = function () {
-        getLineData(code);
+        getData(code);
     }
     button.innerText = line;
     outputArea.appendChild(button);
 }
 
-function testfunc(line) {
-    window.alert(line + '成功');
+/**
+ * 
+ * @param {String} code 
+ * @param {String} name 
+ */
+function unyoButton(code, name) {
+    const outputArea = document.getElementById('sishoBtn');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'button';
+    button.name = 'word';
+    button.onclick = function () {
+        getData(code);
+    };
+    button.innerText = name;
+    outputArea.appendChild(button);
 }

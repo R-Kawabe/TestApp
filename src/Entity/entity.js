@@ -118,3 +118,37 @@ class TrainC {
         this.ekikanKbn = 0;
     }
 }
+
+/**
+ * 
+ * @param {*} obj 
+ * @return {Train}
+ */
+function buildUnyo(obj) { //jsonから取得した各要素について？？？
+    const unyo = new Unyo();
+    unyo.UnyoNo = obj["UnyoNo"];
+    unyo.TrainNo = obj["TrainNo"];
+    unyo.Position = obj["Position"];
+    unyo.Type = obj["Type"];
+    unyo.TypeChange = obj["TypeChange"];
+    unyo.Destination = obj["Destination"];
+    unyo.Day = obj["Day"];
+    unyo.FirstTime = obj["FirstTime"];
+    unyo.EndTime = obj["EndTime"];
+    return unyo;
+}
+
+class Unyo {
+    constructor() {
+        this.UnyoNo = "";
+        this.TrainNo = "";
+        this.Position = "";
+        this.Position = "";
+        this.Type = "";
+        this.TypeChange = "";
+        this.Destination = "";
+        this.Day = "";
+        this.FirstTime = "";
+        this.EndTime = "";
+    }
+}

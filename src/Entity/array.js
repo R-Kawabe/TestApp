@@ -49,6 +49,17 @@ const sideBtnArray = [
     }
 ];
 
+const UnyoList = [
+    {
+        'code': 'miyahara',
+        'name': '宮原支所運用'
+    },
+    {
+        'code': 'akashi',
+        'name': '明石支所運用'
+    }
+]
+
 const KinkiAreaLine = [
     {
         'code': 'hokurikubiwako',
@@ -210,16 +221,16 @@ const CentralAreaLine = [
     }, {
         'code': '10005',
         'line': 'CI 太田線'
-    },{
+    }, {
         'code': '10006',
         'line': 'CJ 関西本線'
-    },{
+    }, {
         'code': '10007',
         'line': '紀勢本線'
-    },{
+    }, {
         'code': '10009',
         'line': '名松線'
-    },{
+    }, {
         'code': '10008',
         'line': '参宮線'
     }

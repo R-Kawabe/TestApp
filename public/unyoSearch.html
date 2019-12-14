@@ -9,15 +9,13 @@
     <meta http-equiv="Cache-Control" content="no-store">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../src/Service/fetch.js" defer></script>
     <script src="../src/Entity/array.js" defer></script>
+    <script src="../src/Entity/entity.js" defer></script>
     <script src="../src/Repository/createBtn.js" defer></script>
     <script src="../src/Repository/getDate.js" defer></script>
-    <script src="../src/Entity/entity.js" defer></script>
-    <script src="../src/Service/script.js" defer></script>
-    <script src="../src/Entity/stationList.js" defer></script>
-    <script src="../src/Repository/stationGet.js" defer></script>
     <script src="../src/Repository/setOption.js" defer></script>
+    <script src="../src/Service/fetch.js" defer></script>
+    <script src="../src/Service/unyoSearch.js" defer></script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/color.css">
     <link rel="icon" type="image/png" href="image/favicon1.png">
@@ -32,9 +30,9 @@
     <main class="main-wrap">
         <aside class="sidebar">
             <p>全件表示</p>
-            <button class="button" onclick="get('miyahara')" name="word_U">宮原支所運用</button><br>
-            <button class="button" onclick="get('akashi')" name="word_U">明石支所運用</button>
+            <div id="sishoBtn"></div>
             <form id="Unyo_Search" class="form">
+                <!-- 次回アップデート：検索フォームを動的に生成 -->
                 <p class="form">検索フォーム</p>
                 <div>
                     <label for="Unyo_Text">運用番号</label>
@@ -72,9 +70,9 @@
         </aside>
         <article class="main">
             <div id="Date-Time"></div>
-            <div class="output-area">
-                <div id="outputArea">始めに全件表示してから検索を始めてください。<br>
-                回送列車の時刻は目安です。</div>
+            <div class="elem">
+                <div id="elem">始めに全件表示してから検索を始めてください。<br>
+                    回送列車の時刻は目安です。</div>
             </div>
         </article>
     </main>

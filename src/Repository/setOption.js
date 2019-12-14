@@ -4,7 +4,7 @@
  * @param {*} linename
  */
 function AddDispTypeCol(trainType, linename) {//otherはlinename=""を定義しとけ
-    var typeCol=null;
+    var typeCol = null;
     switch (trainType) {
         case "普通": {
             typeCol = '<span class="local">' + trainType + '</span>';
@@ -25,7 +25,10 @@ function AddDispTypeCol(trainType, linename) {//otherはlinename=""を定義し�
         }
         case "快速": {
             switch (linename) {
-                case ("yamatoji" || "wakayama2"):
+                case "yamatoji":
+                    typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
+                    return typeCol;
+                case "wakayama2":
                     typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
                     return typeCol;
                 case "nara":
@@ -68,11 +71,19 @@ function AddDispTypeCol(trainType, linename) {//otherはlinename=""を定義し�
             typeCol = '<span class="specialrapid">' + trainType + '</span>';
             return typeCol;
         }
-        case ("丹波路快" || "丹波路快速"): {
+        case "丹波路快": {
             typeCol = '<span class="tanbajirapid">' + trainType + '</span>';
             return typeCol;
         }
-        case ("紀州路快" || "紀州路快速"): {
+        case "丹波路快速": {
+            typeCol = '<span class="tanbajirapid">' + trainType + '</span>';
+            return typeCol;
+        }
+        case "紀州路快": {
+            typeCol = '<span class="kishujirapid">' + trainType + '</span>';
+            return typeCol;
+        }
+        case "紀州路快速": {
             typeCol = '<span class="kishujirapid">' + trainType + '</span>';
             return typeCol;
         }
@@ -84,11 +95,19 @@ function AddDispTypeCol(trainType, linename) {//otherはlinename=""を定義し�
             typeCol = '<span class="kixrapid">関空</span>' + '<span class="kishujirapid">紀州</span>';
             return typeCol;
         }
-        case ("大和路快" || "大和路快速"): {
+        case "大和路快": {
             typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
             return typeCol;
         }
-        case ("みやこ快" || "みやこ路快速"): {
+        case "大和路快速": {
+            typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
+            return typeCol;
+        }
+        case "みやこ快": {
+            typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
+            return typeCol;
+        }
+        case "みやこ路快速": {
             typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
             return typeCol;
         }
