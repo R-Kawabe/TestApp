@@ -90,8 +90,8 @@ html, body {
         display: inline-block;
         width: 150px;
         height: 50pt;
-        display: inline-block;
         vertical-align: middle;
+        line-height: 50%;
         text-align: center;
         text-decoration: none;
         outline: none;
@@ -164,12 +164,12 @@ html, body {
         display: inline-block;
         width: 150px;
         height: 40pt;
-        display: inline-block;
         vertical-align: middle;
         text-align: center;
         text-decoration: none;
         outline: none;
         white-space: pre-wrap;
+        word-break: break-all;
     }
     .button::before, .button::after {
         position: absolute;
@@ -189,7 +189,7 @@ html, body {
         border: 2px solid #333;
         color: #fff;
         line-height: 50%;
-        z-index: auto;
+        /* z-index: auto; */
     }
     .button:hover {
         background-color: #fff;
