@@ -233,8 +233,14 @@ function nicknameSet(nickname) {//otherのみ
  * @param {*} direction 
  */
 function directionSet(direction) {
-    if (direction == 0) return "上り";
-    else return "下り";
+    switch (area) {
+        case '東海エリア':
+            if (direction == 1) return "上り";
+            else return "下り";
+        default:
+            if (direction == 0) return "上り";
+            else return "下り";
+    }
 }
 
 /**
@@ -242,8 +248,14 @@ function directionSet(direction) {
  * @param {*} delayMinutes 
  */
 function delayMinutesSet(delayMinutes) {
-    if (delayMinutes == 0) return '<span class="noDelay">定刻</span>';
-    // '<span class="noDelay">'+delayMinutes+'</span>'+"分遅れ";
-    else if (delayMinutes > 60) return '<span class="overDelay">60分以上遅れ</span>';
-    else return '<span class="delayMinutes">' + delayMinutes + '分遅れ</span>';
+    switch (area) {
+        case '東海エリア':
+            if (delayMinutes == 0) return '<span class="noDelay">定刻</span>';
+            else if (delayMinutes > 59) return '<span class="overDelay">60分以上遅れ</span>';
+            else return '<span class="delayMinutes">' + delayMinutes + '分遅れ</span>';
+        default:
+            if (delayMinutes == 0) return '<span class="noDelay">定刻</span>';
+            else if (delayMinutes > 60) return '<span class="overDelay">60分以上遅れ</span>';
+            else return '<span class="delayMinutes">' + delayMinutes + '分遅れ</span>';
+    }
 }

@@ -20,11 +20,11 @@ const AreaArray = [
         'area': '山陰エリア',
         'url': 'public/Sanin.html'
     }
-    // ,{
-    //     'code': 'central',
-    //     'area': '東海エリア',
-    //     'url': 'public/Central.html'
-    // }
+    , {
+        'code': 'central',
+        'area': '東海エリア',
+        'url': 'public/Central.html'
+    }
 ];
 
 const sideBtnArray = [
@@ -179,5 +179,48 @@ const SaninAreaLine = [
     }, {
         'code': 'hakubi2',
         'line': 'V 伯備線'
+    }
+];
+
+const CentralAreaLine = [
+    {
+        'code': '10001',
+        'line': 'CA 東海道本線1'
+    }, {
+        'code': '10011',
+        'line': 'CA 東海道本線2'
+    }, {
+        'code': '10013',
+        'line': 'CB 御殿場線'
+    }, {
+        'code': '10012',
+        'line': 'CC 身延線'
+    }, {
+        'code': '10010',
+        'line': 'CD 飯田線'
+    }, {
+        'code': '10002',
+        'line': 'CE 武豊線'
+    }, {
+        'code': '10003',
+        'line': 'CF 中央本線'
+    }, {
+        'code': '10004',
+        'line': 'CG 高山本線'
+    }, {
+        'code': '10005',
+        'line': 'CI 太田線'
+    },{
+        'code': '10006',
+        'line': 'CJ 関西本線'
+    },{
+        'code': '10007',
+        'line': '紀勢本線'
+    },{
+        'code': '10009',
+        'line': '名松線'
+    },{
+        'code': '10008',
+        'line': '参宮線'
     }
 ];

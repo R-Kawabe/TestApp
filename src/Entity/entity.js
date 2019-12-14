@@ -86,3 +86,35 @@ class TrainOther {
         this.notice = "";
     }
 }
+
+
+/**
+ * 
+ * @param {*} obj 
+ * @return {Train}
+ */
+function buildTrainC(obj) { //jsonから取得した各要素について？？？
+    const train = new TrainC();
+    train.dest = obj["yukisaki"];
+    train.direction = obj["jogeKbn"];
+    train.delayMinutes = obj["chienJifun"];
+    train.displayType = obj["resshaShubetsuMei"];
+    train.nickname = obj["aishoMei"];
+    train.no = obj["resshaBng"];
+    train.pos = obj["ryokakuEkiCd"];
+    train.ekikanKbn = obj["ekiEkikanKbn"];
+    return train;
+}
+
+class TrainC {
+    constructor() {
+        this.no = "";
+        this.dest = "";
+        this.direction = 0;
+        this.displayType = "";
+        this.delayMinutes = 0;
+        this.nickname = "";
+        this.pos = "";
+        this.ekikanKbn = 0;
+    }
+}

@@ -2,9 +2,10 @@
  * 
  * @param {Train[]} trains 
  */
-function viewTrainsOther(trains) {
+function viewTrainsC(trains) {
+    const elem = document.getElementById("elem");
     while (child = elem.firstChild) elem.removeChild(child);
-    const trainElems = trains.map(trainElementoOther);
+    const trainElems = trains.map(trainElementC);
     trainElems.forEach(element => {
         elem.appendChild(element);
     });
@@ -15,14 +16,13 @@ function viewTrainsOther(trains) {
  * @param {Train} train 
  * @return {HTMLElement}
  */
-function trainElementoOther(train) {
-    const line = "";
-    const DispTypeAddCol = AddDispTypeCol(train.displayType, line);
+function trainElementC(train) {
+    const DispTypeAddCol = AddDispTypeCol(train.displayType);
     const DestAddCol = AddDestCol(train.dest);
     const nickname = nicknameSet(train.nickname);
-    const direction = directionSet(train.direction);
+    const direction = directionSetC(train.direction);
     const delayMinutes = delayMinutesSet(train.delayMinutes);
-    const position = StaGet_other(train.pos);
+    const position = StaGet_Central(train.pos, train.ekikanKbn);
     // const text = `${train.no} ${train.displayType}${nickname} ${train.dest}行き ${delayMinutes} 走行位置：${position}${direction}`;
     const text = train.no + " " + DispTypeAddCol + nickname + " " + DestAddCol + "行き " + delayMinutes + " 走行位置：" + position + direction;
     const elem = document.createElement('div');

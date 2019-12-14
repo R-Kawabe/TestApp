@@ -23,6 +23,10 @@ window.addEventListener('load', () => {
             AreaArray.map(k => areaButton(k.code, k.area, k.url.replace('public/', './')));
             SaninAreaLine.map(k => lineButton(k.code, k.line));
             break;
+        case '東海エリア': AreaArray.splice(5, 1);
+            AreaArray.map(k => areaButton(k.code, k.area, k.url.replace('public/', './')));
+            CentralAreaLine.map(k => lineButton(k.code, k.line));
+            break;
         default:
             AreaArray.map(k => areaButton(k.code, k.area, k.url));
             break;
