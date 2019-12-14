@@ -84,7 +84,7 @@ function areaButton(code, area, url) {
     const outputArea = document.getElementById('areaSelect');
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = `${code}_button`;
+    button.className = `button ${code}`;
     button.onclick = function () {
         location.href = url;
     }
@@ -101,7 +101,7 @@ function lineButton(code, line) {
     const outputArea = document.getElementById('lineSelect');
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = `${code}_button`;
+    button.className = `button ${code}`;
     button.name = 'word';
     button.onclick = function () {
         getData(code);
@@ -119,7 +119,7 @@ function unyoButton(code, name) {
     const outputArea = document.getElementById('sishoBtn');
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'button';
+    button.className = `button ${code}`;
     button.name = 'word';
     button.onclick = function () {
         getData(code);
