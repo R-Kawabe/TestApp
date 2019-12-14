@@ -83,8 +83,7 @@ function lineButton(code, line) {
     button.className = `${code}_button`;
     button.name = 'word1';
     button.onclick = function () {
-        // getLineData(code);
-        testfunc(code);
+        getLineData(code);
     }
     button.innerText = line;
     outputArea.appendChild(button);
