@@ -32,13 +32,11 @@ function AddDispTypeCol(trainType, linename) {//otherはlinename=""を定義し�
                     typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
                     return typeCol;
                 case "central":
-
                     typeCol = '<span class="rapidC">' + trainType + '</span>';
                     return typeCol;
                 case "":
                     typeCol = '<span class="rapid">' + trainType + '</span>';
                     return typeCol;
-
                 default:
                     typeCol = '<span class="rapid">' + trainType + '</span>';
                     return typeCol;

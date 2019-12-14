@@ -20,11 +20,11 @@ const AreaArray = [
         'area': '山陰エリア',
         'url': 'public/Sanin.html'
     }
-    , {
-        'code': 'central',
-        'area': '東海エリア',
-        'url': 'public/Central.html'
-    }
+    // , {
+    //     'code': 'central',
+    //     'area': '東海エリア',
+    //     'url': 'public/Central.html'
+    // }
 ];
 
 const sideBtnArray = [
@@ -45,7 +45,7 @@ const sideBtnArray = [
     {
         'areaName': 'CentralPage',
         'url': 'https://script.google.com/macros/s/AKfycbzLWMeBoGAf5pmtxm20RP18zFxCzn_khJ9-W2wK-1CkQWxHoCw/exec?page=Tokai',
-        'value': '東海エリア'
+        'value': '東海エリア(旧App)'
     }
 ];
 

@@ -9,8 +9,15 @@
     <meta http-equiv="Cache-Control" content="no-store">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../javascript/getDate.js"></script>
-    <script src="../javascript/unyoData.js"></script>
+    <script src="../src/Service/fetch.js" defer></script>
+    <script src="../src/Entity/array.js" defer></script>
+    <script src="../src/Repository/createBtn.js" defer></script>
+    <script src="../src/Repository/getDate.js" defer></script>
+    <script src="../src/Entity/entity.js" defer></script>
+    <script src="../src/Service/script.js" defer></script>
+    <script src="../src/Entity/stationList.js" defer></script>
+    <script src="../src/Repository/stationGet.js" defer></script>
+    <script src="../src/Repository/setOption.js" defer></script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/color.css">
     <link rel="icon" type="image/png" href="image/favicon1.png">
@@ -55,19 +62,13 @@
                 </div>
             </form>
             <p>在線ページ</p>
-            <!-- <p>JR東海</p>
-            <input type="button" class="button" onclick="location.href='./Central.html'" value="東海エリア"><br> -->
             <p>JR西日本</p>
-            <input type="button" class="button" onclick="location.href='./Kinki.html'" value="近畿エリア"><br>
-            <input type="button" class="button" onclick="location.href='./Kinki2.html'" value="北陸・近畿エリア2"><br>
-            <input type="button" class="button" onclick="location.href='./Okayama.html'" value="岡山・福山エリア"><br>
-            <input type="button" class="button" onclick="location.href='./HiroSeki.html'" value="広島・下関エリア"><br>
-            <input type="button" class="button" onclick="location.href='./Sanin.html'" value="山陰エリア"><br>
-            <p>各社運行情報</p>
-            <button type="button" class="button"
-                onclick="window.open('https://trafficinfo.westjr.co.jp/kinki.html','_blank')">JRW運行情報</button><br>
-            <!-- <button type="button" class="button"
-                onclick="window.open('https://traininfo.jr-central.co.jp/zairaisen/index.html?lang=ja','_blank')">JRC運行状況</button> -->
+            <div id="areaSelect"></div>
+            <p>JR東海</p>
+            <div id="CentralPage"></div>
+            <p>運行情報</p>
+            <div id="WinfoBtnArea"></div>
+            <div id="CinfoBtnArea"></div>
         </aside>
         <article class="main">
             <div id="Date-Time"></div>
