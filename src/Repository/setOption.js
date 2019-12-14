@@ -4,117 +4,130 @@
  * @param {*} linename
  */
 function AddDispTypeCol(trainType, linename) {//otherはlinename=""を定義しとけ
+    var typeCol=null;
     switch (trainType) {
         case "普通": {
-            const typeCol = '<span class="local">' + trainType + '</span>';
+            typeCol = '<span class="local">' + trainType + '</span>';
             return typeCol;
         }
         case "区間快速": {
-            if (linename == "nara") {
-                const typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
-                return typeCol;
-            }
-            else if (linename == "") {
-                const typeCol = '<span class="regionalrapid">' + trainType + '</span>';
-                return typeCol;
-            }
-            else {
-                const typeCol = '<span class="regionalrapid">' + trainType + '</span>';
-                return typeCol;
+            switch (linename) {
+                case "nara":
+                    typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
+                    return typeCol;
+                case "":
+                    typeCol = '<span class="regionalrapid">' + trainType + '</span>';
+                    return typeCol;
+                default:
+                    typeCol = '<span class="regionalrapid">' + trainType + '</span>';
+                    return typeCol;
             }
         }
         case "快速": {
-            if (linename == "yamatoji" || linename == "wakayama2") {
-                const typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
-                return typeCol;
-            }
-            else if (linename == "nara") {
-                const typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
-                return typeCol;
-            }
-            else if (linename == "") {
-                const typeCol = '<span class="rapid">' + trainType + '</span>';
-                return typeCol;
-            }
-            else {
-                const typeCol = '<span class="rapid">' + trainType + '</span>';
-                return typeCol;
+            switch (linename) {
+                case ("yamatoji" || "wakayama2"):
+                    typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
+                    return typeCol;
+                case "nara":
+                    typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
+                    return typeCol;
+                case "central":
+
+                    typeCol = '<span class="rapidC">' + trainType + '</span>';
+                    return typeCol;
+                case "":
+                    typeCol = '<span class="rapid">' + trainType + '</span>';
+                    return typeCol;
+
+                default:
+                    typeCol = '<span class="rapid">' + trainType + '</span>';
+                    return typeCol;
             }
         }
         case "新快速": {
-            const typeCol = '<span class="specialrapid">' + trainType + '</span>';
+            switch (linename) {
+                case "central":
+                    typeCol = '<span class="newrapid">' + trainType + '</span>';
+                    return typeCol;
+                default:
+                    typeCol = '<span class="specialrapid">' + trainType + '</span>';
+                    return typeCol;
+            }
+        }
+        case "特別快速": {
+            typeCol = '<span class="specialrapidC">' + trainType + '</span>';
             return typeCol;
         }
         case "A新快○": {
-            const typeCol = '<span class="specialrapid">' + trainType + '</span>';
+            typeCol = '<span class="specialrapid">' + trainType + '</span>';
             return typeCol;
         }
         case "A→一般": {
-            const typeCol = '<span class="specialrapid">' + trainType + '</span>';
+            typeCol = '<span class="specialrapid">' + trainType + '</span>';
             return typeCol;
         }
         case "一般→A": {
-            const typeCol = '<span class="specialrapid">' + trainType + '</span>';
+            typeCol = '<span class="specialrapid">' + trainType + '</span>';
             return typeCol;
         }
         case ("丹波路快" || "丹波路快速"): {
-            const typeCol = '<span class="tanbajirapid">' + trainType + '</span>';
+            typeCol = '<span class="tanbajirapid">' + trainType + '</span>';
             return typeCol;
         }
         case ("紀州路快" || "紀州路快速"): {
-            const typeCol = '<span class="kishujirapid">' + trainType + '</span>';
+            typeCol = '<span class="kishujirapid">' + trainType + '</span>';
             return typeCol;
         }
         case "関空快速": {
-            const typeCol = '<span class="kixrapid">' + trainType + '</span>';
+            typeCol = '<span class="kixrapid">' + trainType + '</span>';
             return typeCol;
         }
         case "関空紀州": {
-            const typeCol = '<span class="kixrapid">関空</span>' + '<span class="kishujirapid">紀州</span>';
+            typeCol = '<span class="kixrapid">関空</span>' + '<span class="kishujirapid">紀州</span>';
             return typeCol;
         }
         case ("大和路快" || "大和路快速"): {
-            const typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
+            typeCol = '<span class="yamatojirapid">' + trainType + '</span>';
             return typeCol;
         }
         case ("みやこ快" || "みやこ路快速"): {
-            const typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
+            typeCol = '<span class="miyakojirapid">' + trainType + '</span>';
             return typeCol;
         }
         case "直通快速": {
-            const typeCol = '<span class="directrapid">' + trainType + '</span>';
+            typeCol = '<span class="directrapid">' + trainType + '</span>';
             return typeCol;
         }
         case "特急": {
-            const typeCol = '<span class="limitedexp">' + trainType + '</span>';
+            typeCol = '<span class="limitedexp">' + trainType + '</span>';
             return typeCol;
         }
         case "急行": {
-            const typeCol = '<span class="express">' + trainType + '</span>';
+            typeCol = '<span class="express">' + trainType + '</span>';
             return typeCol;
         }
         case "関空特急": {
-            const typeCol = '<span class="limitedexp">' + trainType + '</span>';
+            typeCol = '<span class="limitedexp">' + trainType + '</span>';
             return typeCol;
         }
         case "通勤特急": {
-            const typeCol = '<span class="limitedexp">' + trainType + '</span>';
+            typeCol = '<span class="limitedexp">' + trainType + '</span>';
             return typeCol;
         }
         case ("寝台特急" || "寝台"): {
-            const typeCol = '<span class="extra">' + trainType + '</span>';
+            typeCol = '<span class="extra">' + trainType + '</span>';
             return typeCol;
         }
         case "回送": {
-            const typeCol = '<span class="notinservice">' + trainType + '</span>';
+            typeCol = '<span class="notinservice">' + trainType + '</span>';
             return typeCol;
         }
         case "臨時": {
-            const typeCol = '<span class="extra">' + trainType + '</span>';
+            typeCol = '<span class="extra">' + trainType + '</span>';
             return typeCol;
         }
         case "観光列車": {
-            const typeCol = '<span class="extra">' + trainType + '</span>';
+            typeCol = '<span class="extra">' + trainType + '</span>';
             return typeCol;
         }
         default: {

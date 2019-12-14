@@ -17,10 +17,11 @@ function viewTrainsC(trains) {
  * @return {HTMLElement}
  */
 function trainElementC(train) {
-    const DispTypeAddCol = AddDispTypeCol(train.displayType);
+    const line = 'central';
+    const DispTypeAddCol = AddDispTypeCol(train.displayType, line);
     const DestAddCol = AddDestCol(train.dest);
     const nickname = nicknameSet(train.nickname);
-    const direction = directionSetC(train.direction);
+    const direction = directionSet(train.direction);
     const delayMinutes = delayMinutesSet(train.delayMinutes);
     const position = StaGet_Central(train.pos, train.ekikanKbn);
     // const text = `${train.no} ${train.displayType}${nickname} ${train.dest}行き ${delayMinutes} 走行位置：${position}${direction}`;

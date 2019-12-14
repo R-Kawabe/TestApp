@@ -10,7 +10,7 @@ async function getLineData(line) {
     params.set('word1', line);
     if (area.innerText === '東海エリア') {
         const result = await fetchTrain('lineC.php?', params.toString());
-        const trains = result.trains.map(buildTrainC);
+        const trains = result.lst.map(buildTrainC);
         viewTrainsC(trains);
     } else {
         const result = await fetchTrain('line.php?', params.toString());
@@ -34,6 +34,7 @@ async function fetchTrain(request, param) {
         const result = await fetch(request + param, {
             method: 'GET',
             mode: 'cors',
+            header: 'Content-Type: application/json',
             cache: 'no-cache',
         });
         if (!result.ok) {

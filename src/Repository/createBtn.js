@@ -1,6 +1,6 @@
+const area = document.getElementById('area').innerText;
 window.addEventListener('load', () => {
     //サイドメニューのボタン出力
-    const area = document.getElementById('area').innerText;
     switch (area) {
         case '近畿エリア': AreaArray.splice(0, 1);
             AreaArray.map(k => areaButton(k.code, k.area, k.url.replace('public/', './')));
