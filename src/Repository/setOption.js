@@ -173,7 +173,7 @@ function AddDestCol(trainDest) {
 function LineMarkGet(LineMark) {//無印のみ
     switch (LineMark) {
         case "hokuriku": {
-            const GetMark = '<span class="hokuriku">[A]</span>';
+            const GetMark = '<span class="hokurikuA">[A]</span>';
             return GetMark;
         }
         case "kosei": {
