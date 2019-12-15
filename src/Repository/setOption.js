@@ -221,11 +221,11 @@ function LineMarkGet(LineMark) {//無印のみ
             return GetMark;
         }
         case "hanwa": {
-            const GetMark = '<span class="hanwa">[R]</span>';
+            const GetMark = '<span class="hanwahagoromo">[R]</span>';
             return GetMark;
         }
         case "kansaiairport": {
-            const GetMark = '<span class="kix">[S]</span>';
+            const GetMark = '<span class="kansaiairport">[S]</span>';
             return GetMark;
         }
         case "wakayama2": {
