@@ -31,6 +31,9 @@ window.addEventListener('load', () => {
             AreaArray.map(k => areaButton(k.code, k.area, k.url.replace('public/', './')));
             UnyoList.map(k => unyoButton(k.code, k.name));
             break;
+        case '過去の更新':
+            AreaArray.map(k => areaButton(k.code, k.area, k.url.replace('public/', './')));
+            break;
         default:
             AreaArray.map(k => areaButton(k.code, k.area, k.url));
             break;
