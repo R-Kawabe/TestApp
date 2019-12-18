@@ -1,6 +1,6 @@
-// 現在日時を表すインスタンスを取得
-let now = new Date();
 function clock() {
+    // 現在日時を表すインスタンスを取得
+    let now = new Date();
     // 年
     let year = now.getFullYear();
     // 月　0から11で取得されるので実際の月は+１したものになる
