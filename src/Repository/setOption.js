@@ -87,6 +87,10 @@ function AddDispTypeCol(trainType, linename) {//otherはlinename=""を定義し�
             typeCol = '<span class="kishujirapid">' + trainType + '</span>';
             return typeCol;
         }
+        case "シャトル": {
+            typeCol = '<span class="kixrapid">' + trainType + '</span>';
+            return typeCol;
+        }
         case "関空快速": {
             typeCol = '<span class="kixrapid">' + trainType + '</span>';
             return typeCol;
