@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-    switch (document.getElementById('part2').innerText) {
+    switch (document.getElementById('plan2').innerText) {
         case ("案2-課題から検索ページ"):
             document.getElementById('category_output_area').innerHTML = "ここに<span style='color:green;'>課題</span>のドロップダウンリストを生成する";
             break;

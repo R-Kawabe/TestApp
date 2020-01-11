@@ -1,6 +1,6 @@
-const kadaiBtn = document.getElementById('part1_Kadai');
-const MokutekiBtn = document.getElementById('part1_Mokuteki');
-const TaishoBtn = document.getElementById('part1_Taisho');
+const kadaiBtn = document.getElementById('plan1_Kadai');
+const MokutekiBtn = document.getElementById('plan1_Mokuteki');
+const TaishoBtn = document.getElementById('plan1_Taisho');
 const outputArea = document.getElementById('category_output_area');
 
 kadaiBtn.addEventListener('click', () => {
