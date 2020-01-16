@@ -64,7 +64,7 @@ function createOption(value) {
 divHan.addEventListener('change', (event) => {//翻数が5以上の場合符数を表示しない
     if (event.target.value > 4) {
         divFu.style.display = "none";
-    } else if (event.target.value < 4) {
+    } else if (event.target.value <= 4) {
         divFu.style.display = "block";
     }
 }, false);
