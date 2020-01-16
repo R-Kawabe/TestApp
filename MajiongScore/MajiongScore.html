@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./createList.js" defer></script>
+    <script src="./scoreList.js" defer></script>
+    <script src="./script.js" defer></script>
+    <script src="./calculation.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>麻雀 点数計算</h1>
+    <h3>翻・符数を入力して計算</h3>
+    <div class="rad_OyaKo"><span class="OyaKo">親/子 選択</span><br>
+        親<input id="oya" type="radio" name="oyako" id="oyako" value="親">
+        子<input id="ko" type="radio" name="oyako" id="oyako" value="子">
+    </div>
+    <div class="rad_RonTsumo"><span class="RonTsumo">ロン/自摸</span><br>
+        ロン<input id="ron" type="radio" name="rontsumo" id="rontsumo" value="親">
+        自摸<input id="tsumo" type="radio" name="rontsumo" id="rontsumo" value="子">
+    </div>
+    <div class="sel_HanFu"><span class="HanFu">翻・符数 入力</span><br>
+        <div id="HanListArea">翻：</div>
+        <div id="FuListArea">符：</div>
+    </div>
+    </div>
+    <button type="button" id="sendButton">決定</button>
+    <div id=resultArea></div>
+    <!-- 
+    <h3>符数計算</h3>
+    <div id="rad_OyaKo">親/子 選択</div>
+    <div id="rad_RonTsumo">ロン/自摸 選択</div>
+    <div id="sel_Machi">待ち形 選択</div>
+    <div id="rad_Janto">雀頭 選択</div>
+    <div id="sel_Kotsu">刻子 選択</div>
+    <div id="rad_Kotsu">暗/明 選択</div>
+    <div id="sel_Kantsu">槓子 選択</div>
+    <div id="rad_Kantsu">暗/明 選択</div> -->
+</body>
+
+</html>

@@ -44,6 +44,11 @@ const sideBtnArray = [
     //     'value': 'JRC運行情報'
     // },
     {
+        'areaName': 'majiongScore',
+        'url': 'MajiongScore/MajiongScore.html',
+        'value': '麻雀点数計算'
+    },
+    {
         'areaName': 'CentralPage',
         'url': 'https://script.google.com/macros/s/AKfycbzLWMeBoGAf5pmtxm20RP18zFxCzn_khJ9-W2wK-1CkQWxHoCw/exec?page=Tokai',
         'value': '東海エリア(旧App)'
