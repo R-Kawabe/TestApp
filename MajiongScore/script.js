@@ -20,7 +20,7 @@ sendBtn.addEventListener('click', () => {
             var score = calcScore_oya(result[0].score, FuValue);
             if (score === "符数が間違っています") resultArea.innerText = score;
             else {
-                if (total >= 5) resultArea.innerText = `親の${HanValue}翻は${score}です。`;
+                if (total <= 13) resultArea.innerText = `親の${HanValue}翻は${score}です。`;
                 else resultArea.innerText = `親の${HanValue}翻${FuValue}符は${score}です。`;
             }
         }
@@ -28,7 +28,7 @@ sendBtn.addEventListener('click', () => {
         var result = scoreMatch(total, 'ko');
         if (result[0].score === "符数が間違っています") resultArea.innerText = result[0].score;
         else {
-            if (total >= 5) resultArea.innerText = `子の${HanValue}翻は${result[0].score}点です。`;
+            if (total <= 13) resultArea.innerText = `子の${HanValue}翻は${result[0].score}点です。`;
             else resultArea.innerText = `子の${HanValue}翻${FuValue}符は${result[0].score}点です。`;
         }
     } else {
