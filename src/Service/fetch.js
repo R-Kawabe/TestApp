@@ -5,6 +5,7 @@ const elem = document.getElementById('elem');
  * @param {String} line 
  */
 async function getData(line) {
+    elem.innerHTML = "<div class='nowloading'>読み込み中</div>";
     const area = document.getElementById('area');
     let params = new URLSearchParams();
     params.set('word', line);
@@ -45,7 +46,7 @@ async function fetchTrain(request, param) {
         if (!result.ok) {
             throw new Error("error");
         }
-        const resultData = await result.json(result || null);
+        const resultData = await result.json(result | null);
         return resultData;
     } catch (e) {
         elem.innerText = e.message;
