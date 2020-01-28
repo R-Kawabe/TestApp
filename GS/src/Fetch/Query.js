@@ -196,7 +196,7 @@ function KeySearchQuery(value) {
  * @param {String} query 
  */
 async function fetchQuery(query) {
-  const endpoint = "//lod.hozo.jp/repositories/SocialProblem";
+  const endpoint = "http://lod.hozo.jp/repositories/SocialProblem";
   try {
     const result = await sendQuery(endpoint, query); //エンドポイントにクエリを送信
     if (!result.ok) { //resultがOKじゃないとき
