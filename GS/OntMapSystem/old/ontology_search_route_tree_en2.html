@@ -1,0 +1,203 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Biomimetics Ontology[Search-DEMO]</title>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" media="screen" href="http://lod.hozo.jp/SparqlFinder/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="http://lod.hozo.jp/SparqlFinder/css/table.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="http://lod.hozo.jp/SparqlFinder/css/popup.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/simpletree.css" />
+<style>
+
+#canvas {
+    position:relative;
+}
+.link {
+/*  stroke: #999;*/
+  stroke-opacity: .6;
+}
+.tlink {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+#endpoint {
+	width:400px;
+}
+
+#map {
+	position:absolute;
+}
+/*  dbpediaウインドウスタイル */
+/*  相対座標指定 */
+#dbp {
+  width:600px;
+}
+
+#path {
+  width:400px;
+}
+
+.dialog_header {
+	cursor:pointer;
+}
+
+.dialog_contents {
+	cursor:move;
+	overflow: scroll;
+
+}
+
+.dialog {
+	position:absolute;
+  top:10px;
+  left:10px;
+  padding:10px;
+  background-color:rgba(255,255,255,0.8);
+  border: medium solid #000000;
+}
+
+.find_input{
+  width:300px;
+  cursor:text;
+}
+
+.find_view{
+  font-size:smaller;
+}
+
+
+#container li {
+padding-left:6px;
+margin-left:6px;
+display: -moz-inline-box;
+display: inline-block;
+*display: inline;
+*zoom: 1;
+}
+#container li + li  {
+border-left:2px groove #CCC;
+}
+
+</style>
+
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/jquery-1.10.2.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<!-- この一行を入れるとタッチでのドラッグが可能になる -->
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/jquery.ui.touch-punch.js" charset="UTF-8"></script>
+<!--
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/sparql.js" charset="UTF-8"></script>
+-->
+<script type="text/javascript" src="./js/sparql.js" charset="UTF-8"></script>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/sparql.js"></script>
+<script src="js/treeData.js"></script>
+<script src="js/treeLib.js"></script>
+<script src="js/simpletreemenu.js"></script>
+<script src="make_tree_main.js"></script>
+<script type="text/javascript" src="tree.js"></script>
+
+<script type="text/javascript" src="./map.js"></script>
+<script type="text/javascript" src="./map_option.js"></script>
+<script type="text/javascript" src="./mapdata_util.js"></script>
+<script type="text/javascript" src="./dbpedia_util.js"></script>
+<script type="text/javascript" src="./popupmenu.js"></script>
+<script type="text/javascript" src="./word_option.js"></script>
+<script type="text/javascript" src="./type_util.js"></script>
+<script type="text/javascript" src="./main2.js"></script>
+<!--<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/template.js" charset="UTF-8"></script>-->
+<script>
+<!--
+lang = 'en';
+
+
+-->
+
+</script>
+</head>
+<body>
+
+
+<div id="container">
+	<div id="header">
+	<h1>Biomimetics Ontology[Search-DEMO]</h1>
+	</div>
+endpoint:<input type="text" id="endpoint" value="http://hozoviewer.ei.sanken.osaka-u.ac.jp/endpoint/biomimetic20141017"><br>
+
+<!--始点・終点の概念を固定したバージョン用の選択項目設定（2015/10/18#kozaki）-->
+start:<select id="start_element0">
+<option value="http://biomimetics.hozo.jp/class/防汚，抗菌塗料">Antifouling</option>
+<option value="http://biomimetics.hozo.jp/class/可逆的接合技術">Reversible bonding technology</option>
+<option value="http://biomimetics.hozo.jp/class/低摩擦表面材料">Low friction surface material</option>
+<!--	<option value="http://biomimetics.hozo.jp/class/無反射表面">Non-reflective surface</option>
+<option value="http://biomimetics.hozo.jp/class/高感度センサー">高感度センサー</option>
+<option value="http://biomimetics.hozo.jp/class/リサイクル可能な接着剤">Recyclable adhesive</option>-->
+</select>
+end:<select id="end_element0">
+<option value="http://biomimetics.hozo.jp/class/生物">Creature</option>
+</select>
+<!--ここまで：始点・終点の概念を固定したバージョン用の選択項目設定（2015/10/18#kozaki）-->
+
+
+<!--始点・終点の自由選択可能としたバージョン用の選択項目設定（2015/10/18#kozaki）-->
+<!--<div style="float:left">start:</div><div style="float:left"><input id="start_element" value="Antifouling-antibacterial coating" class="find_input" readonly><br/><span id="start_element2" class="find_view">http://biomimetics.hozo.jp/class/防汚，抗菌塗料</span></div>
+<div style="float:left">　end:</div><div style="float:left"><input id="end_element" value="Creature" class="find_input" readonly><br/><span id="end_element2" class="find_view">http://biomimetics.hozo.jp/class/生物</span></div>
+-->
+<!--ここまで：始点・終点の自由選択可能としたバージョン用の選択項目設定（2015/10/18#kozaki）-->
+
+
+<div style="clear:both;">
+depth
+<select id="query_depth">
+<option>2</option>
+<option>3</option>
+<option selected>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+</select>
+　LIMIT <select id="find_limit"><option value="0" selected>NONE</option><option value="10">10</option><option value="50">50</option><option value="100">100</option></select>
+<input type="button" value="prev" id="find_prev"><input type="button" value="next" id="find_next">
+　BIND <select id="bind_enable"><option value="on">ON</option><option value="off">OFF</option></select>
+</div>
+<ul>
+<li><input type="button" id="find_query" value="Show MAP"/></li>
+<li><input type="checkbox" id="show_label">Show Label</li>
+<li>Highlight paths<input type="checkbox" id="path_root" checked>from Root to Selected
+<input type="checkbox" id="path_leafs">from Selected to Leafs</li>
+<li><input type="button" id="clear_highlight" value="Clear Highlight"/></li>
+</ul>
+Word match:<input type="text" id="findword"><input type="button" id="findbtn" value="Find"><input type="button" id="findclear" value="Clear">
+</div>
+<div id="canvas">
+ <div id="map"></div>
+ <div id="color_sample"></div>
+ <div id="dbp" class="dialog">
+  <div id="dbp_header" class="dialog_header">CLOSE</div>
+  <div id="dbp_contents" class="dialog_contents"></div>
+ </div>
+ <div id="path" class="dialog">
+  <div id="path_header" class="dialog_header">CLOSE</div>
+  <div id="path_contents" class="dialog_contents"></div>
+ </div>
+ <div id="extra" class="dialog">
+  <div id="extra_header" class="dialog_header">CLOSE</div>
+  <div id="extra_contents" class="dialog_contents"></div>
+ </div>
+ <div id="find" class="dialog">
+  <div id="find_header" class="dialog_header">CLOSE</div>
+  <div>Input Word <input id="find_route_word"> <input type="button" id="find_route_word_btn" value="Find"></div>
+  <div id="find_contents" class="dialog_contents"></div>
+ </div>
+ <div id="tree"></div>
+</div>
+
+
+<div id="bgwindow"></div>
+
+</body>
+</html>

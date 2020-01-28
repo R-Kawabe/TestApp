@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../src/Repository/CreateBtn.js" defer></script>
+    <script src="../src/Fetch/Fetch.js" defer></script>
+    <script src="../src/Fetch/Query.js" defer></script>
+    <script src="../src/Repository/Table.js" defer></script>
+    <script src="../src/Entity/Entity.js" defer></script>
+    <script src="../src/Service/CategorySearch.js" defer></script>
+    <link rel="stylesheet" href="../css/style.css?v0.2">
+    <link rel="stylesheet" href="../css/button.css?0.1">
+    <link rel="stylesheet" href="../css/border.css?v0.2">
+    <title>カテゴリ別検索</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="head-div">カテゴリ別検索ページ</div>
+    </header>
+    <main class="main-wrap">
+        <aside class="sidebar">
+            <!-- 各検索ページへのリンク -->
+            <h4>カテゴリ選択</h4>
+            <button type="button" class="button" id="kadaiBtn">課題から検索</button><br>
+            <button type="button" class="button" id="mokutekiBtn">目的から検索</button><br>
+            <button type="button" class="button" id="taishoBtn">対象から検索</button><br>
+
+            <h4>検索ページ</h4>
+            <button type="button" class="button" onclick="location.href='./ontology_map.html'">マップ検索</button><br>
+            <button type="button" class="button" onclick="location.href='./keyword.html'">キーワード検索</button><br>
+            <button type="button" class="button" onclick="location.href='./sparql.html'">SPARQL検索</button><br>
+
+            <h4>トップページ</h4>
+            <button type="button" class="button" onclick="location.href='../TopPage.html'">トップページ</button><br>
+        </aside>
+        <article class="main-area">
+            <h2>カテゴリ別検索</h2>
+            <!-- 2.カテゴリ別に用語を提示 -->
+            <div id="categoryBtnArea">サイドバーから、検索を開始したい項目のボタンをクリックしてください</div><br>
+            <!-- 検索結果出力エリア -->
+            <div id="result_div" class="container"></div>
+        </article>
+    </main>
+    <footer class="footer"></footer>
+</body>
+
+</html>

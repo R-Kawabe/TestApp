@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+.popup {
+	width:500px;
+	background-color:rgb(255, 255, 255);
+	border:outset 2px;
+	position:absolute;
+	z-index:1000;
+}
+
+.quote {
+	border:solid 2px;
+}

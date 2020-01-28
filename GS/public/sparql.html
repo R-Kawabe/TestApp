@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../src/Fetch/Fetch.js" defer></script>
+    <script src="../src/Fetch/Query.js" defer></script>
+    <script src="../src/Repository/Table.js" defer></script>
+    <script src="../src/Service/SPARQL.js" defer></script>
+    <script src="../src/Repository/TryQuery.js" defer></script>
+    <script src="../src/Entity/Entity.js" defer></script>
+    <link rel="stylesheet" href="../css/style.css?v0.1">
+    <link rel="stylesheet" href="../css/button.css?0.1">
+    <link rel="stylesheet" href="../css/border.css?v0.2">
+    <title>SPARQL検索</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="head-div">SPARQL検索ページ</div>
+    </header>
+    <main class="main-wrap">
+        <aside class="sidebar">
+            <!-- 各検索ページへのリンク -->
+            <h4>リンク</h4>
+            <button type="button" class="button" onclick="location.href='./category.html'">カテゴリ検索</button><br>
+            <button type="button" class="button" onclick="location.href='./ontology_map.html'">マップ検索</button><br>
+            <button type="button" class="button" onclick="location.href='./keyword.html'">キーワード検索</button><br>
+            <h4>トップページ</h4>
+            <button type="button" class="button" onclick="location.href='../TopPage.html'">トップページ</button><br>
+        </aside>
+        <article class="main-area">
+            <h2>SPARQL検索</h2>
+            <div class="container">
+                <div class="center-item">
+                    <textarea id="query_area" cols="60" rows="10"></textarea>
+                </div>
+                <div>お試しクエリ（ボタンを押すとテキストエリアにクエリが入力されます）：
+                    <div class="center-item" id="TryQuery"></div>
+                </div>
+                <div class="center-item">
+                    <button id="send">実行</button>
+                </div>
+            </div>
+
+            <!-- 検索結果出力エリア -->
+            <div id="result_div" class="container"></div>
+        </article>
+    </main>
+    <footer class="footer"></footer>
+</body>
+
+</html>

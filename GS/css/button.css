@@ -1,0 +1,77 @@
+.button {
+    display: inline-block;
+    width: 150px;
+    height: 50pt;
+    text-align: center;
+    text-decoration: none;
+    line-height: 50%;
+    outline: none;
+    white-space: pre-wrap;
+}
+
+.button::before, .button::after {
+    position: absolute;
+    z-index: -1;
+    display: block;
+    content: '';
+}
+
+.button, .button::before, .button::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.button {
+    background-color: #333;
+    border: 2px solid #333;
+    color: #fff;
+    line-height: 50px;
+}
+
+.button:hover {
+    background-color: #fff;
+    border-color: red;
+    color: red;
+}
+
+.category_button {
+    display: inline-block;
+    width: fit-content;
+    height: 30pt;
+    text-align: center;
+    text-decoration: none;
+    line-height: 50%;
+    outline: none;
+    white-space: pre-wrap;
+}
+
+.category_button::before, .category_button::after {
+    position: absolute;
+    z-index: -1;
+    display: block;
+    content: '';
+}
+
+.category_button, .category_button::before, .category_button::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.category_button {
+    background-color: lightcyan;
+    border: 1px solid blue;
+    color: black;
+    /* line-height: 50px; */
+}
+
+.category_button:hover {
+    background-color: #fff;
+    border-color: red;
+    color: red;
+}

@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+
+
+#container {
+	width:1280px;
+	align:center;
+	margin-left:auto;
+	margin-right:auto;
+	background-color: #ccccff;
+}
+
+
+.left {
+	width:200px;
+	float: left;
+	background-color: #F0F0FF;
+}
+
+.right {
+	width:1050px;
+	float: left;
+}
+
+.rightonly {
+	float: left;
+}
+
+
+.left_menu {
+	cursor:pointer;
+	border-bottom:thin dashed #a0a0aa;
+}

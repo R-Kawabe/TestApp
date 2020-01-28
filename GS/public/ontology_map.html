@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>オントロジーにようキーワード探索</title>
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="../OntMapSystem/css/main2.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../OntMapSystem/css/table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../OntMapSystem/css/popup.css" />
+	<link rel="stylesheet" href="../css/style.css?v0.1">
+	<link rel="stylesheet" href="../css/button.css?0.1">
+	<link rel="stylesheet" href="../css/border.css?v0.2">
+
+	<style>
+		#canvas {
+			position: relative;
+		}
+
+		.link {
+			/*  stroke: #999;*/
+			stroke-opacity: .6;
+		}
+
+		.tlink {
+			stroke: #999;
+			stroke-opacity: .6;
+		}
+
+		#endpoint {
+			width: 400px;
+		}
+
+		#map {
+			position: absolute;
+		}
+
+		/*  dbpediaウインドウスタイル */
+		/*  相対座標指定 */
+		#dbp {
+			width: 600px;
+		}
+
+		#path {
+			width: 400px;
+		}
+
+		.dialog_header {
+			cursor: pointer;
+		}
+
+		.dialog_contents {
+			cursor: move;
+		}
+
+		.dialog {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			padding: 10px;
+			background-color: rgba(255, 255, 255, 0.8);
+			border: medium solid #000000;
+		}
+
+		li {
+			padding-left: 6px;
+			margin-left: 6px;
+			display: -moz-inline-box;
+			display: inline-block;
+			*display: inline;
+			*zoom: 1;
+		}
+
+		li+li {
+			border-left: 2px groove #CCC;
+		}
+	</style>
+
+	<script type="text/javascript" src="../OntMapSystem/js/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	<!-- この一行を入れるとタッチでのドラッグが可能になる   -->
+	<!--
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/jquery.ui.touch-punch.js" charset="UTF-8"></script>
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/sparql.js" charset="UTF-8"></script>
+-->
+	<script type="text/javascript" src="../OntMapSystem/js/sparql.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="../OntMapSystem/js/writer.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript" src="../OntMapSystem/map.js"></script>
+	<script type="text/javascript" src="../OntMapSystem/map_option.js"></script>
+	<script type="text/javascript" src="../OntMapSystem/mapdata_util.js"></script>
+	<script type="text/javascript" src="../OntMapSystem/dbpedia_util.js"></script>
+	<script type="text/javascript" src="../OntMapSystem/popupmenu.js"></script>
+	<script type="text/javascript" src="../OntMapSystem/ont_map.js"></script>
+</head>
+
+<body>
+	<header class="header">
+		<div class="head-div">オントロジーマップ検索ページ</div>
+	</header>
+	<main class="main-wrap">
+		<aside class="sidebar">
+			<!-- 各検索ページへのリンク -->
+			<h4>検索ページ</h4>
+			<button type="button" class="button" onclick="location.href='./category.html'">カテゴリ検索</button><br>
+			<button type="button" class="button" onclick="location.href='./keyword.html'">キーワード検索</button><br>
+			<button type="button" class="button" onclick="location.href='./sparql.html'">SPARQL検索</button><br>
+			<h4>トップページ</h4>
+			<button type="button" class="button" onclick="location.href='../TopPage.html'">トップページ</button><br>
+		</aside>
+		<article class="main-area">
+			<!-- 関係マップを表示 -->
+
+			<div id="container">
+				<div id="header">
+					<h1>オントロジーによるキーワード探索</h1>
+				</div>
+				endpoint:<input type="text" id="endpoint" value="http://lod.hozo.jp/repositories/SocialProblem"><br>
+				end-class:<input type="text" id="endclass" value="http://socialproblem/class/URL"><br>
+				start-class:<select id="query_index">
+					<option value="http://socialproblem/class/課題">課題</option>
+					<option value="http://socialproblem/class/目的">目的</option>
+					<option value="http://socialproblem/class/対象">対象</option>
+					<option value="http://socialproblem/class/取組・対策">取組・対策</option>
+				</select>
+				depth
+				<select id="query_depth">
+					<option>2</option>
+					<option>3</option>
+					<option selected>4</option>
+					<option>5</option>
+					<option>6</option>
+				</select>
+				　LIMIT <select id="find_limit">
+					<option value="0" selected>NONE</option>
+					<option value="100">100</option>
+				</select>
+				<input type="button" value="prev" id="find_prev"><input type="button" value="next" id="find_next">
+				<ul>
+					<li><input type="button" id="find_query" value="Show MAP" /></li>
+					<li><input type="checkbox" id="show_label">Show Label</li>
+					<li>Highlight paths<input type="checkbox" id="path_root" checked>from Root to Selected
+						<input type="checkbox" id="path_leafs" checked>from Selected to Leafs</li>
+					<li><input type="button" id="clear_highlight" value="Clear Highlight" /></li>
+				</ul>
+				Word match:<input type="text" id="findword"><input type="button" id="findbtn" value="Find"><input
+					type="button" id="findclear" value="Clear">
+			</div>
+			<div id="canvas">
+				<div id="map"></div>
+				<div id="color_sample"></div>
+				<div id="dbp" class="dialog">
+					<div id="dbp_header" class="dialog_header">CLOSE</div>
+					<div id="dbp_contents" class="dialog_contents"></div>
+				</div>
+				<div id="path" class="dialog">
+					<div id="path_header" class="dialog_header">CLOSE</div>
+					<div id="path_contents" class="dialog_contents"></div>
+				</div>
+				<div id="extra" class="dialog">
+					<div id="extra_header" class="dialog_header">CLOSE</div>
+					<div id="extra_contents" class="dialog_contents"></div>
+				</div>
+
+
+			</div>
+		</article>
+	</main>
+	<footer class="footer"></footer>
+</body>
+
+</html>

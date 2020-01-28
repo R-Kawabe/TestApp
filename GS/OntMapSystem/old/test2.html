@@ -1,0 +1,753 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title來村テスト</title>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" media="screen" href="http://lod.hozo.jp/SparqlFinder/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="http://lod.hozo.jp/SparqlFinder/css/table.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="http://lod.hozo.jp/SparqlFinder/css/popup.css" />
+<style>
+
+#canvas {
+    position:relative;
+}
+.link {
+/*  stroke: #999;*/
+  stroke-opacity: .6;
+}
+.tlink {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+#endpoint {
+	width:400px;
+}
+
+#map {
+	position:absolute;
+}
+/*  dbpediaウインドウスタイル */
+/*  相対座標指定 */
+#dbp {
+  width:600px;
+}
+
+#path {
+  width:400px;
+}
+
+.dialog_header {
+	cursor:pointer;
+}
+
+.dialog_contents {
+	cursor:move;
+}
+
+.dialog {
+	position:absolute;
+  top:10px;
+  left:10px;
+  padding:10px;
+  background-color:rgba(255,255,255,0.8);
+  border: medium solid #000000;
+}
+
+li {
+padding-left:6px;
+margin-left:6px;
+display: -moz-inline-box;
+display: inline-block;
+*display: inline;
+*zoom: 1;
+}
+li + li {
+border-left:2px groove #CCC;
+}
+
+</style>
+
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/jquery-1.10.2.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<!-- この一行を入れるとタッチでのドラッグが可能になる   -->
+<!--
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/jquery.ui.touch-punch.js" charset="UTF-8"></script>
+<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/sparql.js" charset="UTF-8"></script>
+-->
+<script type="text/javascript" src="./js/sparql.js" charset="UTF-8"></script>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="./map.js"></script>
+<script type="text/javascript" src="./map_option.js"></script>
+<script type="text/javascript" src="./mapdata_util.js"></script>
+<script type="text/javascript" src="./dbpedia_util.js"></script>
+<script type="text/javascript" src="./popupmenu.js"></script>
+<!--<script type="text/javascript" src="http://lod.hozo.jp/SparqlFinder/js/template.js" charset="UTF-8"></script>-->
+<script>
+<!--
+
+// マップの輪の基準サイズ
+CIRCLE_SIZE = 100;
+
+dep = 4;
+
+var lang = 'ja';
+var type = 3;
+
+var limit = 100;
+var offset = 0;
+
+var popup;
+
+$(window).load(function() {
+
+
+	$('#find_query').click(function(){
+		var query = $('#query_text').val();
+
+		target = null;
+		$('#dbp').hide();
+
+		offset = 0;
+		dep = 2;
+		make_link($('#query_index').val());
+
+	});
+
+/// kita test
+	$('#query_test').click(function(){
+		var query = $('#query_text').val();
+
+		target = null;
+		$('#dbp').hide();
+
+		offset = 0;
+		dep = 2;
+		query_test($('#query_index').val());
+
+	});
+// kita end
+
+	$('#dbp').hide();
+	$('#dbp').draggable();
+	$('#dbp_header').click(function(event){
+		$('#dbp').hide();
+	});
+
+	$('#path').hide();
+	$('#path').draggable();
+	$('#path_header').click(function(event){
+		$('#path').hide();
+	});
+
+	$('#extra').hide();
+	$('#extra').draggable();
+	$('#extra_header').click(function(event){
+		$('#extra').hide();
+	});
+
+	$('#show_label').change(function(event){
+		view_label($('#show_label').is(':checked')); // TODO
+		redraw();
+	});
+
+	$('#clear_highlight').click(function(event){
+		clearSelect();
+	});
+
+	$('#findbtn').click(function(event){
+		find_word($('#findword').val(), 'part');
+	});
+
+	$('#findclear').click(function(event){
+		select_clear('nodes', 2);
+		redraw();
+	});
+
+	init();
+
+
+	$('#query_depth').change(function(event){
+		$('#find_prev').attr('disabled', true);
+		$('#find_next').attr('disabled', true);
+
+	});
+	$('#query_index').change(function(event){
+		$('#find_prev').attr('disabled', true);
+		$('#find_next').attr('disabled', true);
+
+	});
+
+	$('#find_limit').change(function(event){
+		$('#find_prev').attr('disabled', true);
+		$('#find_next').attr('disabled', true);
+
+	});
+
+	$('#find_prev').click(function(){
+		var query = $('#query_text').val();
+		target = null;
+		$('#dbp').hide();
+
+		dep = 2;
+		offset --;
+		make_link($('#query_index').val());
+
+	});
+
+	$('#find_next').click(function(){
+		var query = $('#query_text').val();
+		target = null;
+		$('#dbp').hide();
+
+		dep = 2;
+		offset ++;
+		make_link($('#query_index').val());
+
+	});
+
+
+	$('#find_prev').attr('disabled', true);
+	$('#find_next').attr('disabled', true);
+
+});
+
+function init(){
+
+	// Servletサーバアドレス
+
+	init_dbp(lang);
+
+	// 検索対象エンドポイント（途中での改行は不可）
+
+	popup = new PopupMenu();
+	popup.add('Show Info', function(obj, d){
+		find_dbp(d.label, 'dbp_contents', 'dbp');
+	});
+
+	popup.add('Show Path', function(obj, d){
+
+		// 指定ノードへのpathを取得する
+		var path = get_path(mapdata, d.index);
+
+		$('#path').show();
+
+		view_path(path.nodes, path.links, 'path_contents', 400);
+
+	});
+	popup.addSeparator();
+	popup.add('Search on Google', function(obj, d){
+		var name = encodeURIComponent(d.label);
+		var url = 'http://www.google.com/search?q='+name;
+		 window.open(url);
+
+	});
+	popup.add('Search on Google Scholar', function(obj, d){
+		var name = encodeURIComponent(d.label);
+		var url = 'http://scholar.google.com/scholar?q='+name;
+		 window.open(url);
+	});
+	popup.add('Search on CiNii', function(obj, d){
+		var name = encodeURIComponent(d.label);
+		var url = 'http://ci.nii.ac.jp/search?q='+name;
+		 window.open(url);
+	});
+	popup.add('Search on Nature Tech DB', function(obj, d){
+		var name = encodeURIComponent(d.label);
+		var url = 'http://nature-sr.com/index.php?Page=10&SearchString='+name;
+		 window.open(url);
+	});
+	popup.addSeparator();
+	popup.add('Explore Next..(forward)', function(obj, d){
+		find_extra(d);
+	});
+	popup.add('Explore Next..(backward)', function(obj, d){
+		find_extra(d, true);
+	});
+
+
+}
+
+function make_link(i){
+
+	clear_json();
+	clear_colorType();
+
+	query_type = i;
+	query_index = 2;
+
+	target = undefined;
+
+	limit = $('#find_limit').val();
+	limit = parseInt(limit);
+	if (limit == 0){
+		limit = null;
+	}
+
+	// 複数queryを投げる
+	view_process_popup(true);
+
+	var qr = sendQuery($('#endpoint').val(), make_route_query(query_type, 'http://biomimetics.hozo.jp/class/生物', query_index, lang, type, limit, offset));
+
+	qr.fail(
+		function (xhr, textStatus, thrownError) {
+			alert("Error: A '" + textStatus+ "' occurred.");
+		}
+	);
+	qr.done(
+		function (d) {
+			d = d.results.bindings;
+			view_result(d);
+		}
+		);
+}
+
+function view_result(data){
+
+	if (limit != null){
+		if (data.length > limit){
+			$('#find_next').attr('disabled', false);
+		} else {
+			$('#find_next').attr('disabled', true);
+		}
+		if (offset != 0){
+			$('#find_prev').attr('disabled', false);
+		} else {
+			$('#find_prev').attr('disabled', true);
+		}
+	}
+
+	view_map(make_json(data, type), 'map');
+
+	var depth = $('#query_depth').val();
+
+	if (query_index < depth){
+		var qr = sendQuery($('#endpoint').val(), make_route_query(query_type, 'http://biomimetics.hozo.jp/class/生物', ++query_index, lang, type, limit, offset));
+		qr.fail(
+				function (xhr, textStatus, thrownError) {
+					alert("Error: A '" + textStatus+ "' occurred.");
+				}
+			);
+
+		qr.done(
+				function (d) {
+					d = d.results.bindings;
+					view_result(d);
+				}
+			);
+
+	} else {
+		view_process_popup(false);
+	}
+
+	view_colorSample(colorTypes, 'color_sample');
+}
+
+
+function node_rightclick_event(d, obj){
+	popup.bind(obj);
+	popup.show();
+}
+
+
+
+function node_event(d, obj){
+//	clearSelect();
+	select_clear('nodes', 2);
+
+	// 関連ノードのviewTextをtrueにする
+	node_highlight(d.index);
+
+	if ($('#path_root:checked').val()){
+		node_highlight(d.index, true);
+	}
+	if ($('#path_leafs:checked').val()){
+		node_highlight(d.index, false);
+	}
+
+	redraw();
+
+}
+
+function node_hover_event(d, isHovered){
+	select_clear('both', true);
+	select_clear('both', 3);
+
+	if (isHovered){
+		// 関連ノードのselectedをtrueにする
+		if (get_node_select_type(d.index) != 2){
+			node_select(d.index, 3);
+		}
+
+		if ($('#path_root:checked').val()){
+			node_select(d.index, true, true);
+		}
+		if ($('#path_leafs:checked').val()){
+			node_select(d.index, true, false);
+		}
+	}
+
+	redraw();
+}
+
+function node_dblclick_event(d){
+
+	// TODO map.jsは整理しないといけない
+	close_node(d.index);
+
+}
+
+function map_click_event(d){
+	select_clear();
+	highlight_clear();
+	clear_path('path');
+	redraw();
+}
+
+// extra
+var target;
+
+function find_extra(t, isRev){
+	target = t;
+
+	var query = make_extra_query(t.name, isRev, lang);
+
+	var qr = sendQuery($('#endpoint').val(), query);
+	qr.fail(
+			function (xhr, textStatus, thrownError) {
+				alert("Error: A '" + textStatus+ "' occurred.");
+			}
+		);
+
+	qr.done(
+			function (d) {
+				d = d.results.bindings;
+				view_extra(d);
+			}
+		);
+
+
+}
+
+function view_extra(data){
+	var table = $('#extra_info_table')[0];
+
+	if (table == undefined){
+		$('#extra_contents').append(
+					$('<table></table>')
+					.attr({
+						'id': 'extra_info_table',
+						'class': 'table'
+					})
+			);
+		table = $('#extra_info_table')[0];
+	}
+
+	if ($('#extra_info_button')[0] == undefined){
+		$('#extra_contents').append(
+				$('<input>')
+				.attr({
+					'id': 'extra_info_button',
+					'type': 'button',
+					'value': '追加'
+				})
+		);
+	}
+
+	while(table.rows.length > 0){
+		table.deleteRow(0);	// 行を追加
+	}
+
+	if (data instanceof Array){
+		$('#extra').show();
+		// ヘッダ
+		var header = table.createTHead();	// 行を追加
+		var headerRow = header.insertRow(0);
+
+		id = 1;
+		for (var d=0; d<data.length; d++){
+			var row1 = table.insertRow(d+1);	// 行を追加
+
+			if (d == 0){
+				var i=0;
+
+				var th = document.createElement('th');
+				th.innerHTML = '<input type="checkbox" id="ckall">';
+				headerRow.appendChild(th);
+
+
+				for (var key in data[0]){
+					if (key.value == 's'){
+						continue;
+					}
+
+					var th = document.createElement('th');
+					th.innerHTML = key;
+					headerRow.appendChild(th);
+				}
+			}
+
+			var i=0;
+
+			var cell = row1.insertCell(i++);	// 最初はチェックボックスを追加
+			cell.innerHTML = '<input type="checkbox" id="ck' + d +'">';
+
+			// ID
+			for (var key in data[d]) {
+				if (key.value == 's'){
+					continue;
+				}
+				var cell = row1.insertCell(i);	// ２つ目以降のセルを追加
+				var value = data[d][key].value;
+
+				if (value == null){
+					value = '';
+				}
+
+				cell.innerHTML = value;
+
+				i++;
+			}
+		}
+	}
+
+	$('#ckall').change(function(){
+		var chk = false;
+		if($(this).is(':checked')) {
+			chk = true;
+		}
+		for (var d=0; d<data.length; d++){
+			$('#ck'+d).prop('checked', chk);
+		}
+
+	});
+
+
+
+	$('#extra_info_button').unbind('click');
+
+	$('#extra_info_button').click(function(){
+		// TODO チェックされているデータ列を抜き出して表示
+		var new_data = new Array();
+
+		for (var d=0; d<data.length; d++){
+			if ($('#ck'+d).prop('checked')){
+				new_data.push(data[d].value);
+			}
+		}
+
+		view_map(make_json(new_data), 'map');
+	});
+}
+
+function clearSelect(){
+	map_click_event();
+}
+
+//find word
+function find_word(word, type){
+	select_clear('nodes', 2);
+	var find = find_word_in_mapdata(json['nodes'], word, type);
+	for (var i=0; i<find.length; i++){
+//		find[i].selected = 2;
+		node_select(find[i].index, 2);
+	}
+	redraw();
+
+}
+
+// ------------------- kita test ---------------------------
+function query_test(i){
+
+	clear_json();
+	clear_colorType();
+
+	query_type = i;
+	query_index = 2;
+
+	target = undefined;
+
+	limit = $('#find_limit').val();
+	limit = parseInt(limit);
+	if (limit == 0){
+		limit = null;
+	}
+
+	// queryを投げる
+//	view_process_popup(true);
+
+	word = $('#findword').val();
+	if (word =="") {
+		word = '生息地域';
+		}
+		
+	var query_str = 'select ?s ?o where {?s <http://biomimetics.hozo.jp/property/' + word + '> ?o}';
+	var qr =  sendQuery($('#endpoint').val(), query_str);
+
+	qr.fail(
+		function (xhr, textStatus, thrownError) {
+			alert("Error: A '" + textStatus+ "' occurred.");
+		}
+	);
+	qr.done(
+		function (d) {
+			d = d.results.bindings;
+			view_test(d);
+		}
+		);
+}
+
+function view_test(data){
+	var table = $('#test_table')[0];
+
+	if (table == undefined){
+		$('#test_contents').append(
+					$('<table></table>')
+					.attr({
+						'id': 'test_info_table',
+						'class': 'table'
+					})
+			);
+		table = $('#test_info_table')[0];
+	}
+
+/*--- cut ---
+	if ($('#test_info_button')[0] == undefined){
+		$('#test_contents').append(
+				$('<input>')
+				.attr({
+					'id': 'test_info_button',
+					'type': 'button',
+					'value': '追加'
+				})
+		);
+	}
+*/
+
+	while(table.rows.length > 0){
+		table.deleteRow(0);	// 行を追加
+	}
+
+	if (data instanceof Array){
+		$('#extra').show();
+		// ヘッダ
+		var header = table.createTHead();	// 行を追加
+		var headerRow = header.insertRow(0);
+
+		id = 1;
+		for (var d=0; d<data.length; d++){
+			var row1 = table.insertRow(d+1);	// 行を追加
+
+			if (d == 0){
+				var i=0;
+
+				var th = document.createElement('th');
+				th.innerHTML = '<input type="checkbox" id="ckall">';
+				headerRow.appendChild(th);
+
+
+				for (var key in data[0]){
+					if (key.value == 's'){
+						continue;
+					}
+
+					var th = document.createElement('th');
+					th.innerHTML = key;
+					headerRow.appendChild(th);
+				}
+			}
+
+			var i=0;
+
+			var cell = row1.insertCell(i++);	// 最初はチェックボックスを追加
+			cell.innerHTML = '<input type="checkbox" id="ck' + d +'">';
+
+			// ID
+			for (var key in data[d]) {
+				if (key.value == 's'){
+					continue;
+				}
+				var cell = row1.insertCell(i);	// ２つ目以降のセルを追加
+				var value = data[d][key].value;
+
+				if (value == null){
+					value = '';
+				}
+
+				cell.innerHTML = value;
+
+				i++;
+			}
+		}
+		}}
+//-------------------------------- kita end
+
+-->
+
+</script>
+</head>
+<body>
+
+
+<div id="container">
+	<div id="header">
+	<h1>生物規範工学オントロジーによるキーワード探索（テスト版）</h1>
+	</div>
+<!--
+  endpoint:<input type="text" id="endpoint" value="http://lod.hozo.jp/endpoint//BiomimRitsu"> 
+-->
+endpoint:<input type="text" id="endpoint" value="http://dydra.com/koujikozaki/biomimetics/sparql"><br>
+query:<select id="query_index">
+	<option value="http://biomimetics.hozo.jp/class/防汚，抗菌塗料">防汚，抗菌塗料</option>
+	<option value="http://biomimetics.hozo.jp/class/可逆的接合技術">可逆的接合技術</option>
+	<option value="http://biomimetics.hozo.jp/class/低摩擦表面材料">低摩擦表面材料</option>
+<!--	<option value="http://biomimetics.hozo.jp/class/無反射表面">無反射表面</option>
+	<option value="http://biomimetics.hozo.jp/class/高感度センサー">高感度センサー</option>
+	<option value="http://biomimetics.hozo.jp/class/リサイクル可能な接着剤">リサイクル可能な接着剤</option>-->
+</select>
+depth
+<select id="query_depth">
+<option>2</option>
+<option>3</option>
+<option selected>4</option>
+<option>5</option>
+<option>6</option>
+</select>
+　LIMIT <select id="find_limit"><option value="0" selected>NONE</option><option value="100">100</option></select>
+<input type="button" value="prev" id="find_prev"><input type="button" value="next" id="find_next">
+<ul>
+<li><input type="button" id="query_test" value="QUERY TEST"/></li>
+<li><input type="button" id="find_query" value="Show MAP"/></li>
+<li><input type="checkbox" id="show_label">Show Label</li>
+<li>Highlight paths<input type="checkbox" id="path_root" checked>from Root to Selected
+<input type="checkbox" id="path_leafs"  checked>from Selected to Leafs</li>
+<li><input type="button" id="clear_highlight" value="Clear Highlight"/></li>
+</ul>
+Word match:<input type="text" id="findword"><input type="button" id="findbtn" value="Find"><input type="button" id="findclear" value="Clear">
+</div>
+<div id="canvas">
+<div id="map"></div>
+<div id="color_sample"></div>
+<div id="dbp" class="dialog">
+	<div id="dbp_header" class="dialog_header">CLOSE</div>
+	<div id="dbp_contents" class="dialog_contents"></div>
+</div>
+<div id="path" class="dialog">
+	<div id="path_header" class="dialog_header">CLOSE</div>
+	<div id="path_contents" class="dialog_contents"></div>
+</div>
+<div id="extra" class="dialog">
+	<div id="extra_header" class="dialog_header">CLOSE</div>
+	<div id="extra_contents" class="dialog_contents"></div>
+</div>
+<div id="test" class="dialog">
+	<div id="test_header" class="dialog_header">CLOSE</div>
+	<div id="test_contents" class="dialog_contents"></div>
+</div>
+
+</div>
+</body>
+</html>
