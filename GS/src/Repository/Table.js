@@ -136,8 +136,8 @@ function resultCell(obj) {
                 // aTag.innerText = value.replace("_", ":");
                 td.appendChild(aTag);
             } else {
-                // td.innerText = value;
-                td.innerHTML = value + '<br>';
+                td.innerText = value;
+                // td.innerHTML = value + '<br>';
             }
             break;
         default:
@@ -159,6 +159,7 @@ function createTable(headers, rows) {
     table.appendChild(headers);
     table.appendChild(rows);
     for (var i = 1; i < table.rows.length; i++) {//不要な行を削除
+        console.log(table.rows[i].innerText);
         if (table.rows[i].innerText.includes('URL')) {
             table.deleteRow(i);
         }
