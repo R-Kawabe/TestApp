@@ -48,13 +48,13 @@ function QueryTypeProblem(value) {
     select DISTINCT ?torikumi ?Kadai ?mokuteki ?URL
     where {
       {
-          spclass:${value} spprop:取組・対策 ?torikumi;
+          spclass:${value} spprop:取組 ?torikumi;
           spprop:解決する目的 ?mokuteki.
           ?Kadai rdfs:label "${value}"@ja.
           ?torikumi spprop:URL ?URL.
       }UNION{
         ?kadai rdfs:subClassOf spclass:${value};
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する目的 ?mokuteki.
         ?kadai rdfs:label ?Kadai.
         FILTER(LANG(?Kadai)='ja')
@@ -62,7 +62,7 @@ function QueryTypeProblem(value) {
       }UNION{
         ?kadai1 rdfs:subClassOf spclass:${value}.
         ?kadai2 rdfs:subClassOf ?kadai1;
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する目的 ?mokuteki;
                   rdfs:label ?Kadai.
         FILTER(LANG(?Kadai)='ja')
@@ -71,7 +71,7 @@ function QueryTypeProblem(value) {
         ?kadai1 rdfs:subClassOf spclass:${value}.
         ?kadai2 rdfs:subClassOf ?kadai1.
         ?kadai3 rdfs:subClassOf ?kadai2;
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する目的 ?mokuteki;
                   rdfs:label ?Kadai.
         FILTER(LANG(?Kadai)='ja')
@@ -81,7 +81,7 @@ function QueryTypeProblem(value) {
         ?kadai2 rdfs:subClassOf ?kadai1.
         ?kadai3 rdfs:subClassOf ?kadai2.
         ?kadai4 rdfs:subClassOf ?kadai3;
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する目的 ?mokuteki;
                   rdfs:label ?Kadai.
         FILTER(LANG(?Kadai)='ja')
@@ -101,13 +101,13 @@ function QueryTypeObject(value) {
     select DISTINCT ?torikumi ?kadai ?Mokuteki ?URL
     where {
       {
-        spclass:${value} spprop:取組・対策 ?torikumi;
+        spclass:${value} spprop:取組 ?torikumi;
                   spprop:解決する課題 ?kadai.
         ?Mokuteki rdfs:label "${value}"@ja.
         ?torikumi spprop:URL ?URL.
       }UNION{
         ?mokuteki rdfs:subClassOf spclass:${value};
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する課題 ?kadai;
                   rdfs:label ?Mokuteki.
         FILTER(LANG(?Mokuteki)='ja')
@@ -115,7 +115,7 @@ function QueryTypeObject(value) {
       }UNION{
         ?mokuteki1 rdfs:subClassOf spclass:${value}.
         ?mokuteki2 rdfs:subClassOf ?mokuteki1;
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する課題 ?kadai;
                   rdfs:label ?Mokuteki.
         FILTER(LANG(?Mokuteki)='ja')
@@ -124,7 +124,7 @@ function QueryTypeObject(value) {
         ?mokuteki1 rdfs:subClassOf spclass:${value}.
         ?mokuteki2 rdfs:subClassOf ?mokuteki1.
         ?mokuteki3 rdfs:subClassOf ?mokuteki2;
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する課題 ?kadai;
                   rdfs:label ?Mokuteki.
         FILTER(LANG(?Mokuteki)='ja')
@@ -134,7 +134,7 @@ function QueryTypeObject(value) {
         ?mokuteki2 rdfs:subClassOf ?mokuteki1.
         ?mokuteki3 rdfs:subClassOf ?mokuteki2.
         ?mokuteki4 rdfs:subClassOf ?mokuteki3;
-                  spprop:取組・対策 ?torikumi;
+                  spprop:取組 ?torikumi;
                   spprop:解決する課題 ?kadai;
                   rdfs:label ?Mokuteki.
         FILTER(LANG(?Mokuteki)='ja')
@@ -177,7 +177,7 @@ function KeySearchQuery(value) {
         where{
         {
             ?keyword ?p ?text FILTER regex (?text, "${value}", "i") .
-            ?keyword spprop:取組・対策 ?torikumi.
+            ?keyword spprop:取組 ?torikumi.
             ?torikumi spprop:URL ?URL;
                     spprop:解決する課題 ?kadai;
                     spprop:解決する目的 ?mokuteki.
