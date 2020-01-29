@@ -152,7 +152,7 @@ function init(){
 
 	});
 	popup.addSeparator();
-	popup.add('Jamp to details page', function(obj, d){
+	popup.add('Jump to details page', function(obj, d){
 		var name = encodeURIComponent(d.label);
 		// var url = 'http://www.google.com/search?q='+name;
 		var url = 'https://www.city.osaka.lg.jp/shimin/cmsfiles/contents/0000460/460869/' + name;
