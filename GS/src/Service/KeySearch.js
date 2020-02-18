@@ -20,7 +20,7 @@ KeySearchBtn.addEventListener('click', async () => {//入力したキーワー�
             return acc;
         }, document.createDocumentFragment())
 
-    resultArea.innerText = `【${value}】に関する取組・対策と解決する課題、取組の目的一覧`
+    resultArea.innerText = `【${value}】に関する取組情報一覧`
     createTable(headers, rows);
 }, false);
 

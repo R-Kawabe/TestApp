@@ -32,6 +32,7 @@ function headerLabel(text) {
         case 'mokuteki': label = '解決する目的'; break;
         case 'Mokuteki': label = '解決する目的'; break;
         case 'URL': label = '詳細のページ'; break;
+        case 'taisho': label = '対象'; break;
         default: label = text; break;
     }
     return label;
@@ -137,7 +138,6 @@ function resultCell(obj) {
                 td.appendChild(aTag);
             } else {
                 td.innerText = value;
-                // td.innerHTML = value + '<br>';
             }
             break;
         default:
@@ -159,7 +159,6 @@ function createTable(headers, rows) {
     table.appendChild(headers);
     table.appendChild(rows);
     for (var i = 1; i < table.rows.length; i++) {//不要な行を削除
-        console.log(table.rows[i].innerText);
         if (table.rows[i].innerText.includes('URL')) {
             table.deleteRow(i);
         }

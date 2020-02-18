@@ -9,15 +9,15 @@ async function categorySearch(value, category) {
     switch (category) {
         case 'kadai':
             createRes(QueryTypeProblem(value));
-            resultArea.innerText = `課題【${value}】を解決する取組・対策とその目的一覧`;
+            resultArea.innerText = `課題【${value}】を解決する取組情報一覧`;
             break;
         case 'mokuteki':
             createRes(QueryTypeObject(value));
-            resultArea.innerText = `【${value}】を目的とする取組・対策とそれが解決する課題一覧`;
+            resultArea.innerText = `【${value}】を目的とする取組情報一覧`;
             break;
         case 'taisho':
             createRes(QueryTypeSubject(value));
-            resultArea.innerText = `対象が【${value}】である取組・対策一覧`;
+            resultArea.innerText = `対象が【${value}】である取組情報一覧`;
             break;
         default:
             alert('別のキーワードを選んでください');

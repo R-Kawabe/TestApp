@@ -43,51 +43,51 @@ function categoryQuery(category) {
  */
 function QueryTypeProblem(value) {
   return `PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX spclass:<http://socialproblem/class/>
-    PREFIX spprop:<http://socialproblem/property/>
-    select DISTINCT ?torikumi ?Kadai ?mokuteki ?URL
-    where {
-      {
-          spclass:${value} spprop:取組 ?torikumi;
-          spprop:解決する目的 ?mokuteki.
-          ?Kadai rdfs:label "${value}"@ja.
-          ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?kadai rdfs:subClassOf spclass:${value};
-                  spprop:取組 ?torikumi;
-                  spprop:解決する目的 ?mokuteki.
-        ?kadai rdfs:label ?Kadai.
-        FILTER(LANG(?Kadai)='ja')
-        ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?kadai1 rdfs:subClassOf spclass:${value}.
-        ?kadai2 rdfs:subClassOf ?kadai1;
-                  spprop:取組 ?torikumi;
-                  spprop:解決する目的 ?mokuteki;
-                  rdfs:label ?Kadai.
-        FILTER(LANG(?Kadai)='ja')
-        ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?kadai1 rdfs:subClassOf spclass:${value}.
-        ?kadai2 rdfs:subClassOf ?kadai1.
-        ?kadai3 rdfs:subClassOf ?kadai2;
-                  spprop:取組 ?torikumi;
-                  spprop:解決する目的 ?mokuteki;
-                  rdfs:label ?Kadai.
-        FILTER(LANG(?Kadai)='ja')
-        ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?kadai1 rdfs:subClassOf spclass:${value}.
-        ?kadai2 rdfs:subClassOf ?kadai1.
-        ?kadai3 rdfs:subClassOf ?kadai2.
-        ?kadai4 rdfs:subClassOf ?kadai3;
-                  spprop:取組 ?torikumi;
-                  spprop:解決する目的 ?mokuteki;
-                  rdfs:label ?Kadai.
-        FILTER(LANG(?Kadai)='ja')
-        ?torikumi spprop:URL ?URL.
-      }
-    }order by ?torikumi`;
+  PREFIX spclass:<http://socialproblem/class/>
+  PREFIX spprop:<http://socialproblem/property/>
+  select DISTINCT ?torikumi ?Kadai ?mokuteki ?URL
+  where {
+    {
+      spclass:${value} spprop:取組 ?torikumi.
+      ?torikumi spprop:解決する目的 ?mokuteki;
+                spprop:URL ?URL.
+      ?Kadai rdfs:label "${value}"@ja.
+    }UNION{
+      ?kadai rdfs:subClassOf spclass:${value};
+             spprop:取組 ?torikumi;
+             rdfs:label ?Kadai.
+      FILTER(LANG(?Kadai)='ja')
+      ?torikumi spprop:解決する目的 ?mokuteki;
+                spprop:URL ?URL.
+    }UNION{
+      ?kadai1 rdfs:subClassOf spclass:${value}.
+      ?kadai2 rdfs:subClassOf ?kadai1;
+              spprop:取組 ?torikumi;
+              rdfs:label ?Kadai.
+      FILTER(LANG(?Kadai)='ja')
+      ?torikumi spprop:解決する目的 ?mokuteki;
+                spprop:URL ?URL.
+    }UNION{
+      ?kadai1 rdfs:subClassOf spclass:${value}.
+      ?kadai2 rdfs:subClassOf ?kadai1.
+      ?kadai3 rdfs:subClassOf ?kadai2;
+              spprop:取組 ?torikumi;
+              rdfs:label ?Kadai.
+      FILTER(LANG(?Kadai)='ja')
+      ?torikumi spprop:解決する目的 ?mokuteki;
+                spprop:URL ?URL.
+    }UNION{
+      ?kadai1 rdfs:subClassOf spclass:${value}.
+      ?kadai2 rdfs:subClassOf ?kadai1.
+      ?kadai3 rdfs:subClassOf ?kadai2.
+      ?kadai4 rdfs:subClassOf ?kadai3;
+              spprop:取組 ?torikumi;
+              rdfs:label ?Kadai.
+      FILTER(LANG(?Kadai)='ja')
+      ?torikumi spprop:解決する目的 ?mokuteki;
+                spprop:URL ?URL.
+    }
+  }order by ?torikumi`;
 }
 
 /**
@@ -96,51 +96,51 @@ function QueryTypeProblem(value) {
  */
 function QueryTypeObject(value) {
   return `PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX spclass:<http://socialproblem/class/>
-    PREFIX spprop:<http://socialproblem/property/>
-    select DISTINCT ?torikumi ?kadai ?Mokuteki ?URL
-    where {
-      {
-        spclass:${value} spprop:取組 ?torikumi;
-                  spprop:解決する課題 ?kadai.
-        ?Mokuteki rdfs:label "${value}"@ja.
-        ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?mokuteki rdfs:subClassOf spclass:${value};
-                  spprop:取組 ?torikumi;
-                  spprop:解決する課題 ?kadai;
-                  rdfs:label ?Mokuteki.
-        FILTER(LANG(?Mokuteki)='ja')
-        ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?mokuteki1 rdfs:subClassOf spclass:${value}.
-        ?mokuteki2 rdfs:subClassOf ?mokuteki1;
-                  spprop:取組 ?torikumi;
-                  spprop:解決する課題 ?kadai;
-                  rdfs:label ?Mokuteki.
-        FILTER(LANG(?Mokuteki)='ja')
-        ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?mokuteki1 rdfs:subClassOf spclass:${value}.
-        ?mokuteki2 rdfs:subClassOf ?mokuteki1.
-        ?mokuteki3 rdfs:subClassOf ?mokuteki2;
-                  spprop:取組 ?torikumi;
-                  spprop:解決する課題 ?kadai;
-                  rdfs:label ?Mokuteki.
-        FILTER(LANG(?Mokuteki)='ja')
-        ?torikumi spprop:URL ?URL.
-      }UNION{
-        ?mokuteki1 rdfs:subClassOf spclass:${value}.
-        ?mokuteki2 rdfs:subClassOf ?mokuteki1.
-        ?mokuteki3 rdfs:subClassOf ?mokuteki2.
-        ?mokuteki4 rdfs:subClassOf ?mokuteki3;
-                  spprop:取組 ?torikumi;
-                  spprop:解決する課題 ?kadai;
-                  rdfs:label ?Mokuteki.
-        FILTER(LANG(?Mokuteki)='ja')
-        ?torikumi spprop:URL ?URL.
-      }
-    }order by ?torikumi`;
+  PREFIX spclass:<http://socialproblem/class/>
+  PREFIX spprop:<http://socialproblem/property/>
+  select DISTINCT ?torikumi ?kadai ?Mokuteki ?URL
+  where {
+    {
+      spclass:${value} spprop:取組 ?torikumi.
+      ?torikumi spprop:解決する課題 ?kadai;
+                spprop:URL ?URL.
+      ?Mokuteki rdfs:label "${value}"@ja.
+    }UNION{
+      ?mokuteki rdfs:subClassOf spclass:${value};
+             spprop:取組 ?torikumi;
+             rdfs:label ?Mokuteki.
+      FILTER(LANG(?Mokuteki)='ja')
+      ?torikumi spprop:解決する課題 ?kadai;
+                spprop:URL ?URL.
+    }UNION{
+      ?mokuteki1 rdfs:subClassOf spclass:${value}.
+      ?mokuteki2 rdfs:subClassOf ?mokuteki1;
+              spprop:取組 ?torikumi;
+              rdfs:label ?Mokuteki.
+      FILTER(LANG(?Mokuteki)='ja')
+      ?torikumi spprop:解決する課題 ?kadai;
+                spprop:URL ?URL.
+    }UNION{
+      ?mokuteki1 rdfs:subClassOf spclass:${value}.
+      ?mokuteki2 rdfs:subClassOf ?mokuteki1.
+      ?mokuteki3 rdfs:subClassOf ?mokuteki2;
+              spprop:取組 ?torikumi;
+              rdfs:label ?Mokuteki.
+      FILTER(LANG(?Mokuteki)='ja')
+      ?torikumi spprop:解決する課題 ?kadai;
+                spprop:URL ?URL.
+    }UNION{
+      ?mokuteki1 rdfs:subClassOf spclass:${value}.
+      ?mokuteki2 rdfs:subClassOf ?mokuteki1.
+      ?mokuteki3 rdfs:subClassOf ?mokuteki2.
+      ?mokuteki4 rdfs:subClassOf ?mokuteki3;
+              spprop:取組 ?torikumi;
+              rdfs:label ?Mokuteki.
+      FILTER(LANG(?Mokuteki)='ja')
+      ?torikumi spprop:解決する課題 ?kadai;
+                spprop:URL ?URL.
+    }
+  }order by ?torikumi`;
 }
 
 /**
@@ -155,12 +155,12 @@ function QueryTypeSubject(value) {
     where {
       {
         ?subject ?p ?text FILTER regex (?text, "${value}", "i") .
-        ?torikumi <http://socialproblem/property/対象> ?subject.
-        ?torikumi spprop:解決する課題 ?kadai.
-        ?torikumi spprop:解決する目的 ?mokuteki.
-        ?torikumi spprop:URL ?URL.
+        ?torikumi spprop:対象 ?subject.
+        ?torikumi spprop:解決する課題 ?kadai;
+                  spprop:解決する目的 ?mokuteki;
+                  spprop:URL ?URL.
       }
-    }`;
+    }order by ?torikumi`;
 }
 
 /**
@@ -196,7 +196,7 @@ function KeySearchQuery(value) {
  * @param {String} query 
  */
 async function fetchQuery(query) {
-  const endpoint = "http://lod.hozo.jp/repositories/SocialProblem";
+  const endpoint = "http://localhost:3030/socialproblem/sparql";
   try {
     const result = await sendQuery(endpoint, query); //エンドポイントにクエリを送信
     if (!result.ok) { //resultがOKじゃないとき

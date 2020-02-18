@@ -30,7 +30,7 @@ const tryQuery = [
   },
   {
     "id": "text-kodomo",
-    "title": "取組・対策名に「こども」が含まれるもの",
+    "title": "取組名に「こども」が含まれるもの",
     "query": `select DISTINCT ?torikumi ?mokuteki ?kadai ?URL
         where {
           {
